@@ -36,29 +36,29 @@ const port = 5001;
 // }
 
 const migrateFunction = async () => {
-  const dbConfig = {
-    database: "postgres",
-    user: "postgres",
-    password: "password",
-    host: "localhost",
-    port: 5432,
-  };
+    const dbConfig = {
+        database: "postgres",
+        user: "postgres",
+        password: "password",
+        host: "localhost",
+        port: 5432,
+    };
 
-  // Note: when passing a client, it is assumed that the database already exists
-  const client = new Client(dbConfig); // or a Pool, or a PoolClient
-  await client.connect();
-  try {
-    await migrate({ client }, path.resolve(__dirname, "db/migrations/sql"));
-  } finally {
-    await client.end();
-  }
+    // Note: when passing a client, it is assumed that the database already exists
+    const client = new Client(dbConfig); // or a Pool, or a PoolClient
+    await client.connect();
+    try {
+        await migrate({ client }, path.resolve(__dirname, "db/migrations/sql"));
+    } finally {
+        await client.end();
+    }
 };
 
 app.get("/", (req, res) => {
-  res.send("working");
+    res.send("working");
 });
 
 app.listen(port, () => {
-  console.log(`i am listening on ${port}`);
-  migrateFunction();
+    console.log(`i am listening on ${port}`);
+    migrateFunction();
 });
